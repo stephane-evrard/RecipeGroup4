@@ -41,10 +41,15 @@ INSTALLED_APPS = [
     'recipeapp',
     'bootstrap4',
     'rest_framework',
+    'star_ratings',
+    'django_social_share',
+    'django_bookmark_base',
+    'crispy_forms',
+    'drf_yasg',
 
 
 ]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
