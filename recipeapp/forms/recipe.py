@@ -2,7 +2,7 @@ from django import forms
 from django.utils import timezone
 from django.conf import settings
 
-from recipeapp.models import Recipe,  IngredientName, Direction, Ingredient,Review
+from recipeapp.models.models import Recipe,  IngredientName, Direction, Ingredient,Review
 
 
 class IngredientData:
