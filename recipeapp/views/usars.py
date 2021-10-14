@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render, get_object_or_404
 from recipeapp.forms.users import SaveUserProfileForm
 
-from recipeapp.models import UserProfile
+from recipeapp.models.models import UserProfile
 
 
 def user_profile(request, username):

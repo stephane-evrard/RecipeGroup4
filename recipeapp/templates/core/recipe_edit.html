@@ -15,13 +15,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="id_image">Image</label><br>Currently: <a href="{{recipe.image.url}}">{{recipe.image}}</a>
-                        <input type="checkbox" name="image-clear" id="image-clear_id">
-                        <label for="image-clear_id">Clear</label><br> Change:
-                        <input type="file" name="image" accept="image/*" class="form-control-file is-valid" title="" id="id_image"></div>
+                        {%if recipe.image%} <img src="{{recipe.image}}" alt="imge here" class='image'>{%endif%}
+                        <label for="" class='form-label'>Image</label>
+                        <input type='file' name='image' class='form-control'>
+                    </div>
 
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -75,7 +74,10 @@
             <div class="form-group">
                 <label for="ingredients">Ingredients</label>
             </div>
-            <div id="ingredients"></div>
+            <div id="ingredients">
+                {%for dir in ingridients%}
+                <h6>{{dir.quantity}} {{dir.ingredient}}</h6>{%endfor%}
+            </div>
             <div class="form-group">
                 <button type="button" class="btn btn-secondary form-control" id="add_ingredient">Add ingredient</button>
             </div>
@@ -84,7 +86,8 @@
                 <label for="directions">Directions</label>
             </div>
             <div id="directions">
-
+                {% for dir in directions %}
+                <h6>{{dir.text}}</h6>{%endfor%}
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-secondary form-control" id="add_direction">Add direction</button>
@@ -98,7 +101,7 @@
 </div>
 <!-- Templates used in JS -->
 <div class="form-row form-group" id="ingredient" style="display: none;">
-    {% for dir in ingridients %}
+
     <div class="col-1">
         <button type="button" class="btn btn-primary btn-remove-recipe">
                 <span class="oi oi-x" title="Remove recipe" aria-hidden="true"></span>
@@ -110,11 +113,11 @@
     <div class="col-10">
         <input type="text" class="form-control" name="ing_name" id="ing_name" value="{{dir.ingredient.name}}">
     </div>
-    {%endfor%}
+
 </div>
 
 <div class="form-row form-group" id="direction" style="display: none;">
-    {% for dir in directions %}
+
     <div class="col-1">
         <button type="button" class="btn btn-primary btn-remove-dir">
                 <span class="oi oi-x" title="Remove direction" aria-hidden="true"></span>
@@ -124,5 +127,5 @@
 
         <input type="text" name="dir_text" id="dir_text" class="form-control" value="{{dir.text}}">
     </div>
-    {%endfor%}
+
 </div>
