@@ -8,8 +8,8 @@ from rest_framework import routers, serializers, viewsets
 from django.views.generic.list import ListView
 from star_ratings.models import Rating
 from recipeapp.forms.recipe import  ReviewForm, SubmitRecipeForm
-from recipeapp.models import Direction, Ingredient, Recipe, Review
-from recipeapp.serializers import  DirectionSerializer, IngredientSerializer, RatingSerializer, RecipeSerializer
+from recipeapp.models.models import Direction, Ingredient, Recipe, Review
+from recipeapp.serializers.serializers import  DirectionSerializer, IngredientSerializer, RatingSerializer, RecipeSerializer
 
 def submit_recipe(request):
     """
