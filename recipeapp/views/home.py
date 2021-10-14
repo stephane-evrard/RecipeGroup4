@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template import context
 from recipeapp.forms.recipe import ReviewForm
 
-from recipeapp.models import Recipe
+from recipeapp.models.models import Recipe, Review
 
 
 def home(request):
@@ -64,11 +64,13 @@ def viewpage(request,recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     ingredients = recipe.ingredient_set.order_by('-index')
     directions = recipe.direction_set.order_by('-index')
+    comments=Review.objects.filter(recipe=recipe_id)
     context = {
         'recipe': recipe,
         'ingredients': ingredients,
         'directions': directions,
-        'form':form
+        'form':form,
+        'comments':comments
         
     }
     return render(request,'core/rec_details.html',context)
