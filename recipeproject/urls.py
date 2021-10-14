@@ -23,6 +23,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf.urls import url
+from recipeapp.views.home import home
 from recipeapp.views.recipe import DirectionsViewSet, IngridientsViewSet, RatingsViewSet, RecipeViewSet
 router = routers.DefaultRouter()
 router.register(r'recipes', RecipeViewSet)
@@ -57,7 +58,7 @@ urlpatterns = [
     path('',include('recipeapp.urls')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-    
+   
    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),   
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

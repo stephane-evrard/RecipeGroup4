@@ -10,6 +10,7 @@ from star_ratings.models import Rating
 from recipeapp.forms.recipe import  ReviewForm, SubmitRecipeForm
 from recipeapp.models.models import Direction, Ingredient, Recipe, Review
 from recipeapp.serializers.serializers import  DirectionSerializer, IngredientSerializer, RatingSerializer, RecipeSerializer
+from django.core.mail import send_mail
 
 def submit_recipe(request):
     """
@@ -23,6 +24,7 @@ def submit_recipe(request):
             recipe.save()
             form.save_ingredients(recipe)
             form.save_directions(recipe)
+            send_mail('You edited a recipe', 'Thank you for contributing to our app.You posted a recipe at classy recipe  <br/>Regards,  <br/>Mwashe Berit', 'mwasheberit@gmail.com', [request.user.email], fail_silently=False)
             return redirect('/')
     else:
         form = SubmitRecipeForm()
@@ -49,7 +51,7 @@ def delete_recipe(request, recipe_id):
     except:
         return redirect('/')
     recipe_sel.delete()
-    return redirect('/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 @login_required
 def edit_recipe(request, recipe_id):
@@ -88,6 +90,7 @@ def submit_review(request, recipe_id):
     """
     Submits a review for the recipes as specified in the URL.
     """
+   
     user=User.objects.get(id=request.user.id)
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     if request.method == 'POST':

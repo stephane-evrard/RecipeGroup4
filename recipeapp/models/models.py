@@ -15,7 +15,7 @@ class Recipe(models.Model):
     """
     A users-uploaded recipes. Recipes can be created by registered users and are the core feature of the application.
     """
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
  
@@ -68,7 +68,7 @@ class Ingredient(models.Model):
     An ingredient in a users-submitted recipes. Each ingredient has a name entry, quantity, and index in the order of
     appearance in the recipes.
     """
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     ingredient = models.ForeignKey('IngredientName', on_delete=models.PROTECT)
     quantity = models.IntegerField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -82,7 +82,7 @@ class Direction(models.Model):
     A single direction for a recipes. Directions tell the users "how" to make the recipes. Each direction has a
     description text and index in the order of appearance.
     """
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=1000)
     index = models.IntegerField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -97,7 +97,7 @@ class IngredientName(models.Model):
     An ingredient name value. Normalized so that an ingredient's name is not simply a string but rather a row in the
     database. This is useful for browsing purpose.
     """
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
@@ -129,7 +129,7 @@ class UserProfile(models.Model):
     """
     User profile data that is displayed on the associated user's profile page.
     """
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     image = CloudinaryField('image')
     bio = models.CharField(max_length=1000, default=None, blank=True, null=True)

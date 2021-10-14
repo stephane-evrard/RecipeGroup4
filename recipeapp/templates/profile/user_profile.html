@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %} {%load bootstrap4%}{% block title %}User | Profile{% endblock %} {% load static %} {% block content %}
 
-<div class="right_section_container">
+<div class=" container right_section_container" style='background: linear-gradient(45deg,rgb(60, 229, 241),#e4e14f);'>
+
     <div class="user_recipe_section_header">{{ profile.user.username }}</div>
     <hr class="hr2">
 
@@ -19,10 +20,11 @@
 
 
         </div>
-        <div class="row">
+
+        <div class="row justify-content-center">
             {%for recipe in recipe_list%}
-            <div class="card text-center">
-                <div class="row align-items-center ">
+            <div class="card text-center" style='width:30% !important'>
+                <div class="row align-items-start ">
                     <div class="col text-center">
                         <h3 class="display-3">
                             <a href="{%url 'viewpage' recipe.id%}"><img src="{{ recipe.image.url }}" width='300px' height='300px' alt="no image"></h3>

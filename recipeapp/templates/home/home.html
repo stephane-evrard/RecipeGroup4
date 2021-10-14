@@ -48,7 +48,7 @@
 
 
     {%for recipe in recipe%}
-    <div class="card text-center">
+    <div class="card text-center cont">
         <div class="row align-items-center ">
             <div class="col text-center">
                 <h3 class="display-3">
@@ -62,6 +62,10 @@
 
                 </div>
             </div>
+        </div>
+        <div class="middle">
+            <div class="t">{{recipe.country}}
+                <br/>{{recipe.created_at}}</div>
         </div>
     </div>
     {%empty%}

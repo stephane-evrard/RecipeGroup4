@@ -2,9 +2,9 @@ from re import A
 from django.shortcuts import get_object_or_404, render
 from django.template import context
 from recipeapp.forms.recipe import ReviewForm
-
+from django.core.mail import send_mail
 from recipeapp.models.models import Recipe, Review
-
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     try:
@@ -15,9 +15,10 @@ def home(request):
         context={
             'recipe':recipes
         }
+        
     except:
         recipe=Recipe.objects.all().order_by('created_at').reverse()
-
+        
         context={
             'recipe':recipe
         }
@@ -74,4 +75,6 @@ def viewpage(request,recipe_id):
         
     }
     return render(request,'core/rec_details.html',context)
-
+@login_required()
+def user_dashboard(request):
+    return render(request, 'home/dashboard.html')

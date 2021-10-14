@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from recipeapp.views import home,recipe,usars
+from recipeapp.views import home,recipe,usars,views
 
 
 
@@ -19,7 +19,11 @@ urlpatterns = [
   path('recipes/<int:recipe_id>/edit', recipe.edit_recipe, name='edit_recipe'),
     path('users/<username>/', usars.user_profile, name='user_profile'),
   path('editprofile',usars.edit_profile,name='edit_profile'),
-  path('recipes/<int:recipe_id>/comment',recipe.submit_review,name='comment')
-    
+  path('recipes/<int:recipe_id>/comment',recipe.submit_review,name='comment'),
+  path('dashboard', home.user_dashboard, name='user_dashboard'),
+     path('signup', views.signup, name='signup'),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
+    path('signin', views.signin, name='signin'),
+    path('signout', views.signout, name='signout'),
 
 ]
