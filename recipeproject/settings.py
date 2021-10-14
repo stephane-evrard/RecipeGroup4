@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'django_bookmark_base',
     'crispy_forms',
     'drf_yasg',
+    'cloudinary',
 
 
 ]
@@ -148,7 +152,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGOUT_REDIRECT_URL = '/'
 
 # rest_framework
-
+cloudinary.config( 
+  cloud_name = "recipestore", 
+  api_key = "138212665139842", 
+  api_secret = "UjhO0031lGkBUt5PQCmrwHIRwec" 
+)
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
