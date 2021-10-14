@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}{%load bootstrap4%} {% load static %}{% load social_share %} {%load ratings%}{% block title %}Recipe detail{% endblock %} {% block content %}
+{% extends 'core/base.html' %}{%load bootstrap4%}{% load cloudinary %} {% load static %}{% load social_share %} {%load ratings%}{% block title %}Recipe detail{% endblock %} {% block content %}
 
 <div class="container-fluid recipe-detail">
 
@@ -99,20 +99,41 @@
     <hr class="hr ">
 
     <!-- Review and Rate section -->
+    <div class="comments_direction_section_container ">
+        <h4 class='text-center'>comments</h4>
+        <div class="row">
 
-    <div class="review_container ">
-        <h5>Leave a comment</h5>
+            {% for dir in comments %}
+            <div class="col" style='border: 1px black solid '>
 
-        <form action="{% url 'comment' recipe.id %}" method="post">
-            {% csrf_token %} {%bootstrap_form form%}
+                {{dir.user}} {{ dir.comment }} {{ dir.title }}</div>
+            {%endfor%}
+        </div>
 
-
-
-            <div class="form-group ">
-                <button type="submity" class="btn btn-primary ">Submit</button>
-            </div>
-        </form>
     </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div class="review_container ">
+    <h5>Leave a comment</h5>
+
+    <form action="{% url 'comment' recipe.id %}" method="post">
+        {% csrf_token %} {%bootstrap_form form%}
+
+
+
+        <div class="form-group ">
+            <button type="submity" class="btn btn-primary ">Submit</button>
+        </div>
+    </form>
+</div>
 
 
 </div>
