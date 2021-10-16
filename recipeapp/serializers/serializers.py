@@ -4,7 +4,10 @@ from rest_framework import routers, serializers, viewsets
 from star_ratings.models import Rating
 from recipeapp.models.models import Direction, Ingredient, Recipe
 
-
+class userSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields =  '__all__'
 # Serializers define the API representation.
 class RecipeSerializer(serializers.ModelSerializer):
     ingredients = serializers.SerializerMethodField()
@@ -45,6 +48,9 @@ class DirectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Direction
         fields = '__all__'
+
+
+
 
 
 

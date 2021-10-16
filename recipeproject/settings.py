@@ -154,19 +154,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/'
 
-# rest_framework
-cloudinary.config( 
-  cloud_name = "recipestore", 
-  api_key = "138212665139842", 
-  api_secret = "UjhO0031lGkBUt5PQCmrwHIRwec" 
-)
-SENDGRID_API_KEY = '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'
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -178,11 +166,3 @@ REST_FRAMEWORK = {
 # Authentication
 LOGIN_REDIRECT_URL= '/'
 LOGOUT_REDIRECT_URL = '/'
-
-# rest_framework
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER ='david.kimani@student.moringaschool.com'
-EMAIL_HOST_PASSWORD =  'njungokimani'

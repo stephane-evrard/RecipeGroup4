@@ -24,11 +24,12 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf.urls import url
 from recipeapp.views.home import home
-from recipeapp.views.recipe import DirectionsViewSet, IngridientsViewSet, RatingsViewSet, RecipeViewSet
+from recipeapp.views.recipe import DirectionsViewSet, IngridientsViewSet, RatingsViewSet, RecipeViewSet, userviewsets
 router = routers.DefaultRouter()
 router.register(r'recipes', RecipeViewSet)
 router.register(r'rates', RatingsViewSet)
 router.register(r'ingridients', IngridientsViewSet)
+router.register(r'users', userviewsets)
 router.register(r'methods', DirectionsViewSet,basename='Direction')
 
 

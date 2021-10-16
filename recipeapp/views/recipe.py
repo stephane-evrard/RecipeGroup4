@@ -9,8 +9,11 @@ from django.views.generic.list import ListView
 from star_ratings.models import Rating
 from recipeapp.forms.recipe import  ReviewForm, SubmitRecipeForm
 from recipeapp.models.models import Direction, Ingredient, Recipe, Review
-from recipeapp.serializers.serializers import  DirectionSerializer, IngredientSerializer, RatingSerializer, RecipeSerializer
+from recipeapp.serializers.serializers import  userSerializers,DirectionSerializer, IngredientSerializer, RatingSerializer, RecipeSerializer
 from django.core.mail import send_mail
+from rest_framework import viewsets
+ 
+from django.contrib.auth.models import User
 
 def submit_recipe(request):
     """
@@ -132,5 +135,12 @@ class RatingsViewSet(viewsets.ModelViewSet):
 class IngridientsViewSet(viewsets.ModelViewSet):
     queryset =  Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+
+
+class userviewsets(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = userSerializers
+
 
 
