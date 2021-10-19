@@ -25,6 +25,8 @@ from drf_yasg import openapi
 from django.conf.urls import url
 from recipeapp.views.home import home
 from recipeapp.views.recipe import DirectionsViewSet, IngridientsViewSet, RatingsViewSet, RecipeViewSet, userviewsets
+from mpesa.urls import mpesa_urls
+
 router = routers.DefaultRouter()
 router.register(r'recipes', RecipeViewSet)
 router.register(r'rates', RatingsViewSet)
@@ -59,7 +61,9 @@ urlpatterns = [
     path('',include('recipeapp.urls')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-   
+# path('api/v1/', include('mpesa.urls')),
+ path('mpesa/', include(mpesa_urls)),
    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+# path('api/v1/', include('mpesa_api.urls')),
    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),   
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

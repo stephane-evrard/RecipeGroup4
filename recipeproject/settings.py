@@ -15,6 +15,7 @@ from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from decouple import config 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ee8p&9c5x6jy!8o3gc^ari8#1s7haf+#2#aq!sjv(_+he#32z1'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'mpesa',
      'admin_black.apps.AdminBlackConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +53,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'drf_yasg',
     'cloudinary',
+    # 'mpesa_api'
+    
    
    
 
@@ -186,3 +190,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='david.kimani@student.moringaschool.com'
 EMAIL_HOST_PASSWORD =  'njungokimani'
+
+MPESA_CONFIG = {
+    'CONSUMER_KEY': 'nXmAYn2m8AE04Sih8oGg5SFB6AGAwnLW',
+    'CONSUMER_SECRET': 'VHYtUL9uwTlGfbbR',
+    'CERTIFICATE_FILE': None,
+    'HOST_NAME': 'https://ee19-102-167-218-191.ngrok.io',
+    'PASS_KEY': 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919',
+    'SAFARICOM_API': 'https://sandbox.safaricom.co.ke',
+    'SHORT_CODE': '174379',
+}

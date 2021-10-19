@@ -1,3 +1,5 @@
+from datetime import datetime
+from turtle import ondrag
 from django.contrib.auth.models import User
 from django_bookmark_base.models import BookmarkModel
 from django.db import models
@@ -32,6 +34,8 @@ class Recipe(models.Model):
     country=models.CharField(max_length=30,default='Kenya')
     is_featured = models.BooleanField(default=False)
     ratings = GenericRelation(Rating, related_query_name='foos')
+    free=models.BooleanField(default=True)
+    # recipe_price=models.DecimalField(max_digits=10,decimal_places=2)
     @classmethod
     def filter_by_rating(cls):
         return cls.objects.filter(ratings__isnull=False).order_by('ratings__average').reverse()
@@ -105,6 +109,60 @@ class IngredientName(models.Model):
 
 
 
+from django.db import models
+
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+# M-pesa Payment models
+
+class MpesaCalls(BaseModel):
+    ip_address = models.TextField()
+    caller = models.TextField()
+    conversation_id = models.TextField()
+    content = models.TextField()
+
+    class Meta:
+        verbose_name = 'Mpesa Call'
+        verbose_name_plural = 'Mpesa Calls'
+
+
+class MpesaCallBacks(BaseModel):
+    ip_address = models.TextField()
+    caller = models.TextField()
+    conversation_id = models.TextField()
+    content = models.TextField()
+
+    class Meta:
+        verbose_name = 'Mpesa Call Back'
+        verbose_name_plural = 'Mpesa Call Backs'
+
+
+class MpesaPayment(BaseModel):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+    type = models.TextField()
+    reference = models.TextField()
+    first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone_number = models.TextField()
+    organization_balance = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Mpesa Payment'
+        verbose_name_plural = 'Mpesa Payments'
+
+    def __str__(self):
+        return self.first_name
+
+
 
 
 
@@ -140,3 +198,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return 'User profile for %s' % self.user.username
+

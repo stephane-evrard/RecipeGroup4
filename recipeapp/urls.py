@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from recipeapp.views import home,recipe,usars,views
+from recipeapp.views import home,recipe,usars,views,paypal,mpesa
 
 
 
@@ -25,5 +25,15 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path('signin', views.signin, name='signin'),
     path('signout', views.signout, name='signout'),
+#  path('access/token',mpesa.getAccessToken,name='get_access_token'),
+path('pay', paypal.index, name='index'),
+#  path('online/lipa', mpesa.lipa_na_mpesa_online, name='lipa_na_mpesa'),
+#  path('con', mpesa.call_back, name='con'),
+ 
+
+
+
+
+  
 
 ]

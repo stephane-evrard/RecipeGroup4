@@ -1,11 +1,16 @@
+import json
+import logging
+# from os import sync
 from re import A
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template import context
 from recipeapp.forms.recipe import ReviewForm
 from django.core.mail import send_mail
 from recipeapp.models.models import Recipe, Review
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 def home(request):
     try:
         query = request.GET.get('q')
@@ -78,3 +83,43 @@ def viewpage(request,recipe_id):
 @login_required()
 def user_dashboard(request):
     return render(request, 'home/dashboard.html')
+
+@csrf_exempt
+def register_urls(request):
+    access_token = MpesaAccessToken.validated_mpesa_access_token
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
+    headers = {"Authorization": "Bearer %s" % access_token}
+    options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
+               "ResponseType": "Completed",
+               "ConfirmationURL": "https://91563395.ngrok.io/api/v1/c2b/confirmation",
+               "ValidationURL": "https://91563395.ngrok.io/api/v1/c2b/validation"}
+    response = requests.post(api_url, json=options, headers=headers)
+    return HttpResponse(response.text)
+
+@csrf_exempt
+def call_back(request):
+    data=request.GET.get('body')
+    mpesa_body =request.body.decode('utf-8')
+    mpesa_payment = json.loads(mpesa_body)
+    print(mpesa_payment)
+    print(data)
+    # payment = MpesaPayment(
+    #     first_name=mpesa_payment['FirstName'],
+    #     last_name=mpesa_payment['LastName'],
+    #     middle_name=mpesa_payment['MiddleName'],
+    #     description=mpesa_payment['TransID'],
+    #     phone_number=mpesa_payment['MSISDN'],
+    #     amount=mpesa_payment['TransAmount'],
+    #     reference=mpesa_payment['BillRefNumber'],
+    #     organization_balance=mpesa_payment['OrgAccountBalance'],
+    #     type=mpesa_payment['TransactionType'],
+
+    # )
+    # payment.save()
+
+    context = {
+        "ResultCode": 0,
+        "ResultDesc": "Accepted"
+    }
+    return  HttpResponse(context)
+    # return JsonResponse(dict(context))
